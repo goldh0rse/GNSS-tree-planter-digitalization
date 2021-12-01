@@ -7,7 +7,6 @@
 #include <Wire.h>
 #include <SparkFun_u-blox_GNSS_Arduino_Library.h>
 #include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
 #include "const.h"
 #include "util.h"
 #include "mem_SD.h"

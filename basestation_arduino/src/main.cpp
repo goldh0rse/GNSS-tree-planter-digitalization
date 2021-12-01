@@ -4,7 +4,6 @@
 volatile boolean monitorAvailable = false;
 volatile boolean endLoggingState = false;
 SFE_UBLOX_GNSS myGNSS;
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 
 void setup(){
@@ -25,52 +24,16 @@ void setup(){
   //SD
   pinMode(SD_CHIP_SELECT, OUTPUT);
 
-  //OLED
-  pinMode(OLED_RESET, OUTPUT);
-
   // Init I2C
   Wire.begin();
   Wire.setClock(400000); //Optional. Increase I2C clock speed to 400kHz.
 
-  // Init Serial monitor
+  // Init Serial monitor, uncomment if serial monitor is wanted
   //setupMonitor();
-
-  // if(!display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDRESS)) {
-  //   writeStrToMonitor("SSD1306 allocation failed", true);
-  //   for(;;); // Don't proceed, loop forever
-  // }
-
-  // Show initial display buffer contents on the screen --
-  // the library initializes this with an Adafruit splash screen.
-  // display.display();
-  // delay(1000); // Pause for 2 seconds
-  // display.clearDisplay();
-  // display.setTextSize(1);             // Normal 1:1 pixel scale
-  // display.setTextColor(SSD1306_WHITE);        // Draw white text
-  // display.setCursor(0,0);             // Start at top-left corner
-  // display.println(F("Init GNSS..."));
-  // display.display();
-
-  // display.setCursor(0, ROW*3);
-  // display.print(F("Databuffer: "));
-  // display.println(FILE_BUFFER_SIZE);
-  
-  // display.setCursor(0, ROW*4);
-  // display.print(F("Packet size: "));
-  // display.println(MAX_PACKET_PAYLOAD_SIZE);
-  // display.display();
-  // delay(2000);
-
-  // display.clearDisplay();
-  // display.setCursor(0, ROW * 0);
-  // display.println(F("Starting GNSS..."));
-  // display.display();
 
   myGNSS.disableUBX7Fcheck(); // RAWX data can legitimately contain 0x7F, so we need to disable the "7F" check in checkUbloxI2C
 
   myGNSS.setFileBufferSize(FILE_BUFFER_SIZE); // setFileBufferSize must be called _before_ .begin
-  
-  // myGNSS.setPacketCfgPayloadSize(UBX_CLASS_RXM, UBX_RXM_RAWX); // RawX data is big, need to resize payload to accomodate for the size
 
   delay(1000); // Give the module some extra time to get ready
 
@@ -82,48 +45,15 @@ void setup(){
 
   myGNSS.setI2COutput(COM_TYPE_UBX); //Set the I2C port to output UBX only (turn off NMEA noise)
 
-  // display.setCursor(0, ROW*1);
-  // display.println(F("Connected over i2c!"));
-  // display.setCursor(0, ROW*3);
-  // display.println(F("Enabling systems..."));
-  // display.display();
-
-  // writeStrToMonitor("Initializing to FactoryDefault...", false);
-  // myGNSS.factoryDefault(); delay(5000);
-  // writeStrToMonitor("Done!", true);
-
-  // myGNSS.enableDebugging(); // Uncomment this line to enable lots of helpful debug messages
-  // myGNSS.enableDebugging(Serial, true); // Uncomment this line to enable the minimum of helpful debug messages
-
-
-  myGNSS.enableGNSS(true, SFE_UBLOX_GNSS_ID_GPS); 
+  myGNSS.enableGNSS(true, SFE_UBLOX_GNSS_ID_GPS);
   myGNSS.enableGNSS(true, SFE_UBLOX_GNSS_ID_SBAS);
   myGNSS.enableGNSS(true, SFE_UBLOX_GNSS_ID_GALILEO);
   myGNSS.enableGNSS(true, SFE_UBLOX_GNSS_ID_BEIDOU);
   myGNSS.enableGNSS(false, SFE_UBLOX_GNSS_ID_IMES);
-  myGNSS.enableGNSS(true, SFE_UBLOX_GNSS_ID_QZSS); 
-  myGNSS.enableGNSS(true, SFE_UBLOX_GNSS_ID_GLONASS); 
-  
-  delay(2000);
+  myGNSS.enableGNSS(true, SFE_UBLOX_GNSS_ID_QZSS);
+  myGNSS.enableGNSS(true, SFE_UBLOX_GNSS_ID_GLONASS);
 
-  // display.clearDisplay();
-  // display.setCursor(0, ROW*0);
-  // display.println(F("Enabling systems..."));
-  // display.setCursor(0, ROW*2);
-  // display.print(F("GPS: ")); display.print(myGNSS.isGNSSenabled(SFE_UBLOX_GNSS_ID_GPS));
-  // display.print(F(" BeiDou: ")); display.println(myGNSS.isGNSSenabled(SFE_UBLOX_GNSS_ID_BEIDOU));
-  
-  // display.setCursor(0, ROW*3);
-  // display.print(F("SBAS: ")); display.print(myGNSS.isGNSSenabled(SFE_UBLOX_GNSS_ID_SBAS));
-  // display.print(F(" Galileo: ")); display.println(myGNSS.isGNSSenabled(SFE_UBLOX_GNSS_ID_GALILEO));
-  
-  // display.setCursor(0, ROW*4);
-  // display.print(F("IMES: ")); display.print(myGNSS.isGNSSenabled(SFE_UBLOX_GNSS_ID_IMES));
-  // display.print(F(" QZSS: ")); display.println(myGNSS.isGNSSenabled(SFE_UBLOX_GNSS_ID_QZSS));
-  
-  // display.setCursor(0, ROW*5);
-  // display.print(F("GLONASS: ")); display.println(myGNSS.isGNSSenabled(SFE_UBLOX_GNSS_ID_GLONASS));
-  // display.display();
+  delay(2000);
 
   myGNSS.saveConfigSelective(VAL_CFG_SUBSEC_IOPORT); //Save (only) the communications port settings to flash and BBR
 
@@ -141,30 +71,23 @@ void setup(){
 
   myGNSS.setDynamicModel(DYN_MODEL_STATIONARY); // For the Base
   // myGNSS.setDynamicModel(DYN_MODEL_PEDESTRIAN); // For the Rover, Affects the 'gnssFixOk'-flag.
-  
+
   // Create storage for the time pulse parameters
   UBX_CFG_TP5_data_t timePulseParameters;
 
   // Get the time pulse parameters
   if (myGNSS.getTimePulseParameters(&timePulseParameters) == false) {
     writeStrToMonitor("getTimePulseParameters failed! Freezing...", true);
-    while (1) ; // Do nothing more
+    exit(-1);
   }
 
   timePulseParameters.flags.bits.active = 0; // Make sure the active flag is set to enable the time pulse. (Set to 0 to disable.)
   if (myGNSS.setTimePulseParameters(&timePulseParameters) == false){
     writeStrToMonitor("setTimePulseParameters failed!", true);
-    while(1);
-    // Do nothing more
+    exit(-1);
   }
-  // checkFixType();
- 
-  while(!(myGNSS.getDateValid() && myGNSS.getTimeValid())){
-    // display.clearDisplay();
-    // display.setCursor(0, ROW*0);
-    // display.println(F("Waiting for valid Date and Time."));
-    // display.display();
-  }
+  while(!(myGNSS.getDateValid() && myGNSS.getTimeValid()));
+
   // Init SD-card
   SdFile::dateTimeCallback(dateTime);
   setupSD();
@@ -184,7 +107,7 @@ void setup(){
 
 void loop() {
   myGNSS.checkUblox();
-  
+
   uint16_t remainingBytes = myGNSS.fileBufferAvailable();
   while(remainingBytes > 0){
     digitalWrite(READY_LED, LOW);
@@ -206,8 +129,6 @@ void loop() {
     digitalWrite(READY_LED, HIGH);
   }
 
-  // digitalWrite(READY_LED, HIGH);
-
 
   if (endLoggingState){
     digitalWrite(READY_LED, LOW);
@@ -216,10 +137,8 @@ void loop() {
     digitalWrite(END_LOGGING_LED, HIGH);
     digitalWrite(LOG_DATA_LED, LOW);
     digitalWrite(READY_LED, LOW);
-    
-    // myGNSS.end(); // Frees all RAM onboard the zed-f9p
 
-    while(1);
+    exit(0);
   }
 } // END MAIN
 
@@ -239,26 +158,26 @@ void updateOled(void){
   display.clearDisplay();
   display.setCursor(0, ROW*0);
   display.print(F("SIV: ")); display.println(myGNSS.getSIV());
-  
+
   display.setCursor(0, ROW*1);
   display.print(F("Time & Date Valid: ")); display.println(myGNSS.getTimeValid() && myGNSS.getDateValid());
 
   display.setCursor(0, ROW*2);
   byte fixType = myGNSS.getFixType();
   display.print(F("Fix Type: "));
-  display.setCursor(10, ROW*3); 
+  display.setCursor(10, ROW*3);
   if(fixType == 0) display.println(F("No fix"));
   else if(fixType == 1) display.println(F("Dead reckoning"));
   else if(fixType == 2) display.println(F("2D"));
   else if(fixType == 3) display.println(F("3D"));
   else if(fixType == 4) display.println(F("GNSS + Dead reckoning"));
   else if(fixType == 5) display.println(F("Time only"));
-  
+
   display.setCursor(0, ROW*4);
-  display.print(F("GNSS Fix: ")); 
-  
+  display.print(F("GNSS Fix: "));
+
   if(myGNSS.getGnssFixOk()) display.println(F("OK"));
   else display.println(F("Not OK"));
-  
+
   display.display();
 }
