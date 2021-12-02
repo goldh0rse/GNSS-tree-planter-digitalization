@@ -101,7 +101,6 @@ void setup(){
   digitalWrite(END_LOGGING_LED, LOW);
 
   writeStrToMonitor("Setup Finished!", true);
-  digitalWrite(READY_LED, HIGH);
 }
 
 
