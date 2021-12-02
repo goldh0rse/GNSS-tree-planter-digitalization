@@ -1,9 +1,10 @@
 import sys
 import os
 from datetime import datetime, timedelta
+from typing import List, Dict, Union
 
 class Data_point:
-	def __init__(self, line):
+	def __init__(self, line: str):
 		self.line = line
 		l = line.split()
 		self.date_line = l[0]
@@ -30,30 +31,35 @@ class Data_point:
 	def __repr__(self):
 		return self.datetime
 
-def get_adjescent_datapoint(time_stamp, data_points, threshold):
-	dps = get_Q_filtered_datapoint(time_stamp, data_points, 1, threshold)
+def get_adjescent_datapoint(time_stamp: datetime,
+		data_points: Dict[datetime, Data_point],
+		threshold: int) -> Union[Data_point, None]:
+
+	dps = get_Q_filtered_datapoints(time_stamp, data_points, 1, threshold)
 	if len(dps) > 0:
 		# Found some data with rtk-fix ( sub cm accurracy (GOOD))
 		return get_closest_datapoint(time_stamp, dps, threshold)
 
-	dps = get_Q_filtered_datapoint(time_stamp, data_points, 2, threshold)
+	dps = get_Q_filtered_datapoints(time_stamp, data_points, 2, threshold)
 	if len(dps) > 0:
 		# Found some data with rtk-float ( 1cm < accuracy < 1m )
 		return get_closest_datapoint(time_stamp, dps, threshold)
 
 
-	dps = get_Q_filtered_datapoint(time_stamp, data_points, 5, threshold)
+	dps = get_Q_filtered_datapoints(time_stamp, data_points, 5, threshold)
 	if len(dps) > 0:
 		# Found some data with rtk-single ( accuracy > 1m (BAD))
 		return get_closest_datapoint(time_stamp, dps, threshold)
 
 	# No adjescent data found,
 	# only happens with no data or
-	# data loss over more than +- 5s
+	# data loss over more than +- threshold seconds
 	return None
 
+def get_Q_filtered_datapoints(time_stamp: datetime,
+		data_points: Dict[datetime, Data_point], q: int,
+		max_threshold: int) -> Dict[datetime, Data_point]:
 
-def get_Q_filtered_datapoint(time_stamp, data_points, q, max_threshold):
 	d_seconds = 1
 	dps = {}
 
@@ -76,7 +82,10 @@ def get_Q_filtered_datapoint(time_stamp, data_points, q, max_threshold):
 
 	return dps
 
-def get_closest_datapoint(time_stamp, data_points, threshold):
+def get_closest_datapoint(time_stamp: datetime,
+		data_points: Dict[datetime, Data_point],
+ 		threshold: int) -> Union[Data_point, None]:
+
 	d_seconds = 1
 
 	while d_seconds <= threshold:
@@ -91,6 +100,7 @@ def get_closest_datapoint(time_stamp, data_points, threshold):
 			return data_points[d_neg]
 		else:
 			d_seconds += 1
+	return None
 
 
 if __name__ == "__main__":
@@ -198,10 +208,11 @@ if __name__ == "__main__":
 
 		if len(errors) > 0:
 			error_file = os.path.join(dir, "errors.txt")
-			with open(error_file, "w") as error_file:
-				error_file.write("The following time stamps had no data within +-{} threshold seconds.\n".format(threshold))
+			with open(error_file, mode='w') as error_f:
+				error_f.write("The following time stamps had no data " \
+						"within +-{} threshold seconds.\n".format(threshold))
 				for e in errors:
-					error_file.write("{}\n".format(e))
+					error_f.write("{}\n".format(e))
 
 
 		# Sort and write data

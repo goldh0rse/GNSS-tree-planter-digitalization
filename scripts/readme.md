@@ -14,9 +14,9 @@ Usage:
   where `MS` stands for milliseconds.
 * Only requires python3 to be installed.
 
-**convert.sh**  
+**convert.sh**  - Does not currently produce the best results
 A scripted file for simplifying conversion of `.ubx` files to  
 `.obs, .nav, .sbas` and also postproccessing.  
 
-Currently does not produces best result.  
-**DOING THE CONVERSION AND POSTPROCCESSING BY HAND IS CURRENTLY FOR THE BEST**
+Uses *RTKBLIB-Explorers* [RTKBLIB](https://github.com/rtklibexplorer/RTKLIB) fork.
+> Convbin & rnx2rtkp needs to be installed and callable as `convbin` & `rnx2rtkp`

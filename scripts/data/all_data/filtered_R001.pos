@@ -1,0 +1,29 @@
+% program   : RTKPOST ver.demo5 b34c
+% inp file  : C:\Users\Admin\Desktop\data 2021-11-18\v2\R001.obs
+% inp file  : C:\Users\Admin\Desktop\data 2021-11-18\v2\B001.obs
+% inp file  : C:\Users\Admin\Desktop\data 2021-11-18\v2\B001.nav
+% inp file  : C:\Users\Admin\Desktop\data 2021-11-18\v2\R001.sbs
+% obs start : 2021/11/18 09:36:37.0 GPST (week2184 380197.0s)
+% obs end   : 2021/11/18 09:47:19.0 GPST (week2184 380839.0s)
+% pos mode  : Kinematic
+% freqs     : L1+L2/E5b
+% solution  : Combined-Phase Reset
+% elev mask : 15.0 deg
+% dynamics  : on
+% tidecorr  : off
+% ionos opt : Broadcast
+% tropo opt : Saastamoinen
+% ephemeris : Broadcast
+% navi sys  : GPS GLONASS Galileo QZSS BDS NavIC SBAS
+% amb res   : Fix and Hold
+% amb glo   : Fix and Hold
+% val thres : 3.0
+% antenna1  :                       ( 0.0000  0.0000  0.0000)
+% antenna2  :                       ( 0.0000  0.0000  0.0000)
+% ref pos   : 63.820887136   20.310322737    40.2467
+%
+% (lat/lon/height=WGS84/ellipsoidal,Q=1:fix,2:float,3:sbas,4:dgps,5:single,6:ppp,ns=# of satellites)
+%  GPST                  latitude(deg) longitude(deg)  height(m)   Q  ns   sdn(m)   sde(m)   sdu(m)  sdne(m)  sdeu(m)  sdun(m) age(s)  ratio
+2021/11/18 09:38:58.000   63.820982402   20.311244465    42.6065   2  21   0.0680   0.0450   0.0852  -0.0263   0.0346  -0.0595  -0.01    2.5
+2021/11/18 09:39:19.000   63.821028159   20.311861938    43.7206   1  20   0.0067   0.0033   0.0105   0.0020   0.0030   0.0052  -0.01   27.9
+2021/11/18 09:39:44.000   63.821100927   20.312600581    45.7707   2  11   0.1889   0.0954   0.2345  -0.0802   0.1022  -0.0607   0.01    0.0
