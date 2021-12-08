@@ -21,7 +21,7 @@ echo ''
 
 ## Python ##
 echo '###Installing Python'
-sudo apt-get install python3 python3-pip -y
+sudo apt-get install python3 python3-pip   -y
 echo ''
 
 ## Git ##
