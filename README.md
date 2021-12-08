@@ -20,4 +20,7 @@ The Repository contains the source-code for a proof of concept of a system that 
 ### Building the modules
 The source code for the **Base** & the **Rover** is divided into:
 * c/c++ files for building using [*PlattformIO*](https://platformio.org/) or similar IDE's / extensions.
-* Arduino ".ino *one file*" style.
+* Arduino `*.ino` "***one file***" style.
+
+
+Installing necessary dependencies for the post-processing and filtering can be done by running the `scripts/install_dependencies.sh` script.
