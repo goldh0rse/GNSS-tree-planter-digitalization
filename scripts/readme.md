@@ -16,7 +16,7 @@ Usage:
 
 **convert.sh**  - Does not currently produce the best results
 A scripted file for simplifying conversion of `.ubx` files to  
-`.obs, .nav, .sbas` and also postproccessing.  
+`.obs, .nav, .sbas` and also statically post-processes the data to produce a usable `.pos`. 
 
-Uses *RTKBLIB-Explorers* [RTKBLIB](https://github.com/rtklibexplorer/RTKLIB) fork.
+Uses @rtklibexplorer [RTKBLIB](https://github.com/rtklibexplorer/RTKLIB) fork.
 > Convbin & rnx2rtkp needs to be installed and callable as `convbin` & `rnx2rtkp`
