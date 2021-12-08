@@ -24,3 +24,4 @@ The source code for the **Base** & the **Rover** is divided into:
 
 
 Installing necessary dependencies for the post-processing and filtering can be done by running the `scripts/install_dependencies.sh` script.
+**NOTE:** bash is requried for scripts.
