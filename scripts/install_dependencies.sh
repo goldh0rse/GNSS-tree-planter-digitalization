@@ -15,9 +15,13 @@ echo '###Updating OS...'
 sudo apt-get update -y
 echo ''
 
+echo '###Installing build-essential'
+sudo apt-get install build-essential -y
+echo ''
+
 ## Python ##
 echo '###Installing Python'
-sudo apt-get install python3 python3-pip3 -y
+sudo apt-get install python3 python3-pip -y
 echo ''
 
 ## Git ##
