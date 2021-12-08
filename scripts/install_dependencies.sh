@@ -1,8 +1,13 @@
 #!/bin/bash
 
 if [[ $EUID -ne 0 ]]; then
-   echo "This script must be run as root, use sudo"
+   echo 'This script must be run as root, use: sudo'
    exit 1
+fi
+
+if [[ $OSTYPE != 'linux-gnu' ]] ; then
+  echo 'This script only works on linux-gnu OS.'
+  exit 1
 fi
 
 if [[ $0 != './install_dependencies.sh' ]] ; then
@@ -13,6 +18,7 @@ fi
 ## Update packages and Upgrade system
 echo '###Updating OS...'
 sudo apt-get update -y
+sudo apt-get upgrade -y
 echo ''
 
 echo '###Installing build-essential'
