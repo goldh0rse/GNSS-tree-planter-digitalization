@@ -1,5 +1,5 @@
-#ifndef _CONST_H_
-#define _CONST_H_
+#ifndef CONST_H_
+#define CONST_H_
 
 // MACROS
 #define SETBIT(ADDR, BIT) (ADDR |= (1<<BIT))
@@ -18,7 +18,7 @@
 #define LOG_DATA_LED RED
 #define END_LOGGING_LED BLUE
 // BUTTONS
-#define LOG_DATA_PIN 2
+#define LOG_DATA_PIN 6
 #define END_LOGGING_PIN 3
 
 // SD-Card
