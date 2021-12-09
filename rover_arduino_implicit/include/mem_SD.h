@@ -5,8 +5,6 @@
  * @version 0.1
  * @date 2021-12-09
  * 
- * @copyright Copyright (c) 2021
- * 
  */
 #ifndef MEM_SD_H_
 #define MEM_SD_H_

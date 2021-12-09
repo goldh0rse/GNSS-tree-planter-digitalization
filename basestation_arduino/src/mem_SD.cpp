@@ -1,29 +1,46 @@
+/**
+ * @file mem_SD.cpp
+ * @author Klas Holmberg (hed16khg@cs.umu.se)
+ * @brief  Contains the memory handling functionalities of the project.
+ * @version 0.1
+ * @date 2021-12-09
+ *
+ */
 #include "mem_SD.h"
 
-File myFile;
+// Files
+File rxmFile;
 
-
-void setupSD(void){
+/**
+ * @brief The setup function for commication with the SD-card module.
+ *        Also handles the creation of the files & and their naming.
+ *
+ * @return true
+ * @return false
+ */
+bool setupSD(void){
   // See if the card is present and can be initialized:
   if (!SD.begin(SD_CHIP_SELECT)) {
-    writeStrToMonitor("Card failed, or not present. Freezing...", true);
-    // don't do anything more:
-    while (1);
+    writeStrToMonitor("Could not connect to SD!", true);
+    return false;
   }
-  
-  char fileName[12] = "b001.ubx";
+
+  // Check for a new RXM-RAWX filename
   uint16_t id = 1;
-  while(SD.exists(fileName) && id < 1000){
+  char rxmFileName[12] = "b001.ubx";
+  while(SD.exists(rxmFileName) && id < 1000){
     id++;
-    sprintf(fileName, FILE_NAME, id);
-    if (id > 999){
-      sprintf(fileName, FILE_NAME, 0);
-    }
+    sprintf(rxmFileName, "b%03d.ubx", id);
   }
-  
-  myFile = SD.open(fileName, FILE_WRITE);
-  if(!myFile) {
-    writeStrToMonitor("Failed to create UBX data file! Freezing...", true);
-    while (1);
+  if (id > 999){A
+    return false;
   }
+
+  // Open new RXM-RAWX file
+  rxmFile = SD.open(rxmFileName, O_CREAT | O_WRITE);
+  if(!rxmFile) {
+    return false;
+  }
+
+  return true;
 }

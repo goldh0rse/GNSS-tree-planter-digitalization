@@ -33,7 +33,7 @@ bool setupSD(void){
     id++;
     sprintf(rxmFileName, "r%03d.ubx", id);
   }
-  if (id > 999){
+  if (id > 999){A
     return false;
   }
 
