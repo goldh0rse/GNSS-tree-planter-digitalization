@@ -6,7 +6,7 @@ Project for the Design-Build-Test Course at Umeå University.
 ### Project Description
 Within the forest industry, major investments are being made to digitalize the wood supply chain. Two topics of this digitalization is focused on planting and felling trees. The problem with both these two topics is that they may require that the position of the trees is already known, which in most forests is not the case today.
 
-The Repository contains the source-code for a proof of concept of a system that can evaluate positioning and log them using GNSS technology and a simple Arduino setup.
+The Repository contains the source-code for a proof of concept of a system that can evaluate the positioning at time of planting and log them using GNSS technology and a simple Arduino setup.
 
 ### Repository contains:
 * Source code for the **Base** that continously logs GNSS data from a static position.
