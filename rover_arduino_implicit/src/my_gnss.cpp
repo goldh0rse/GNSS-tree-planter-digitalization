@@ -4,26 +4,26 @@
  * @brief  The function definitions of the SFE_UBLOX_GPS_ADD class
  * @version 0.1
  * @date 2021-12-09
- * 
+ *
  */
 #include "my_GNSS.h"
 
 
 /**
  * @brief A custom packet function that depicts how to send custom payloads to
- *        the GNSS module. Used in this case to fetch the hardware & softwave 
+ *        the GNSS module. Used in this case to fetch the hardware & softwave
  *        versions.
- * 
- * @param maxWait default value 
- * @return true 
- * @return false 
+ *
+ * @param maxWait default value
+ * @return true
+ * @return false
  */
 bool SFE_UBLOX_GPS_ADD::getModuleInfo(uint16_t maxWait){
-  myGNSS.minfo.hwVersion[0] = 0;
-  myGNSS.minfo.swVersion[0] = 0;
+  this->minfo.hwVersion[0] = 0;
+  this->minfo.swVersion[0] = 0;
   for (int i = 0; i < 10; i++)
-      myGNSS.minfo.extension[i][0] = 0;
-  myGNSS.minfo.extensionNo = 0;
+      this->minfo.extension[i][0] = 0;
+  this->minfo.extensionNo = 0;
 
   // Let's create our custom packet
   uint8_t customPayload[MAX_PAYLOAD_SIZE]; // This array holds the payload data bytes
@@ -72,21 +72,21 @@ bool SFE_UBLOX_GPS_ADD::getModuleInfo(uint16_t maxWait){
 
   uint16_t position = 0;
   for (int i = 0; i < 30; i++){
-    minfo.swVersion[i] = customPayload[position];
+    this->minfo.swVersion[i] = customPayload[position];
     position++;
   }
   for (int i = 0; i < 10; i++){
-    minfo.hwVersion[i] = customPayload[position];
+    this->hwVersion[i] = customPayload[position];
     position++;
   }
 
   while (customCfg.len >= position + 30){
     for (int i = 0; i < 30; i++){
-      minfo.extension[minfo.extensionNo][i] = customPayload[position];
+      this->extension[this->minfo.extensionNo][i] = customPayload[position];
       position++;
     }
-    minfo.extensionNo++;
-    if (minfo.extensionNo > 9)
+    this->minfo.extensionNo++;
+    if (this->minfo.extensionNo > 9)
       break;
   }
 

@@ -4,9 +4,9 @@
  * @brief  The SFE_UBLOX_GPS_ADD class definition.
  * @version 0.1
  * @date 2021-12-09
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 
 #ifndef MY_GNSS_H_
@@ -18,7 +18,7 @@
 
 class SFE_UBLOX_GPS_ADD : public SFE_UBLOX_GNSS{
     public:
-        bool getModuleInfo(uint16_t maxWait = defaultMaxWait); 
+        bool getModuleInfo(uint16_t maxWait = defaultMaxWait);
 
         struct minfoStructure  {
             char swVersion[30];
@@ -28,9 +28,5 @@ class SFE_UBLOX_GPS_ADD : public SFE_UBLOX_GNSS{
         } minfo;
 
 };
-
-
-// Main gnss object
-extern SFE_UBLOX_GPS_ADD myGNSS;
 
 #endif
