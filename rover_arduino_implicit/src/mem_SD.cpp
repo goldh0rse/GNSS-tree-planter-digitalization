@@ -4,9 +4,7 @@
  * @brief  Contains the memory handling functionalities of the project.
  * @version 0.1
  * @date 2021-12-09
- * 
- * @copyright Copyright (c) 2021
- * 
+ *
  */
 #include "mem_SD.h"
 
@@ -17,9 +15,9 @@ File timeSlotFile;
 /**
  * @brief The setup function for commication with the SD-card module.
  *        Also handles the creation of the files & and their naming.
- * 
- * @return true 
- * @return false 
+ *
+ * @return true
+ * @return false
  */
 bool setupSD(void){
   // See if the card is present and can be initialized:
