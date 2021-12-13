@@ -622,7 +622,7 @@ bool getCurrentTime(void){
 
   char buffer[40] = "";
 
-  sprintf(buffer, "%u/%02d/%02d %02d-%02d-%02d.000\n",
+  sprintf(buffer, "%u/%02d/%02d %02d:%02d:%02d.000\n",
     myGNSS.getYear(),
     myGNSS.getMonth(),
     myGNSS.getDay(),
